@@ -3,143 +3,144 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Checklist — Critères pour qu'un jeu Roblox soit valide pour farm</title>
+  <title>Critères — Jeu Roblox valide pour farm (Info)</title>
+  <meta name="description" content="Liste d'information — critères qu'un jeu Roblox doit remplir pour être considéré comme 'valide pour farm'." />
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass: rgba(255,255,255,0.03)}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial; background:linear-gradient(180deg,#071024 0%, #071021 100%);color:#e6eef6}
-    .container{max-width:980px;margin:28px auto;padding:20px}
-    header{display:flex;gap:16px;align-items:center;justify-content:space-between}
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#0ea5a4;
+      --danger:#dc2626;
+      --glass: rgba(2,6,23,0.04);
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#0f1724;background:linear-gradient(180deg,var(--bg),#eef2f7)}
+    .wrap{max-width:920px;margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
     h1{font-size:20px;margin:0}
     p.lead{margin:6px 0 0;color:var(--muted)}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:16px;margin-top:16px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-    .controls{display:flex;gap:8px;flex-wrap:wrap}
-    input[type=text]{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
-    select,input[type=checkbox]{padding:8px}
-    button{background:var(--accent);border:none;color:#052024;padding:10px 12px;border-radius:8px;cursor:pointer}
-    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    ul.criteria{list-style:none;padding:0;margin:12px 0}
-    li.item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,0.01),transparent);margin-bottom:8px}
-    .drag{cursor:grab;font-size:18px;opacity:0.6}
-    .meta{min-width:120px;font-size:13px;color:var(--muted)}
-    .text{flex:1}
-    .text input{width:100%;background:transparent;border:none;color:inherit;font-size:15px}
-    .actions{display:flex;gap:8px}
-    .small{font-size:13px;padding:6px 8px;border-radius:8px}
-    footer{margin-top:16px;color:var(--muted);font-size:13px}
-    @media (max-width:640px){header{flex-direction:column;align-items:flex-start} .controls{flex-direction:column} .meta{min-width:80px}}
+    .card{background:var(--card);border-radius:10px;padding:18px;margin-top:18px;box-shadow:0 6px 18px rgba(12,18,30,0.06)}
+    .criteria{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0;padding:0;list-style:none}
+    .crit{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:8px;background:linear-gradient(180deg,var(--glass),transparent)}
+    .badge{font-weight:600;padding:6px 8px;border-radius:999px;font-size:13px}
+    .badge.must{background:#073642;color:#e6fffa;border:1px solid rgba(0,0,0,0.04)}
+    .badge.nice{background:#fff7ed;color:#92400e;border:1px solid rgba(0,0,0,0.04)}
+    .badge.warning{background: #fff1f2;color:var(--danger);border:1px solid rgba(0,0,0,0.04)}
+    .meta{min-width:110px;font-size:13px;color:var(--muted)}
+    .title{font-weight:700;margin:0 0 6px 0}
+    .desc{margin:0;color:#0f1724}
+    .prio{font-size:12px;color:var(--muted);margin-top:6px}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .controls{display:flex;gap:8px;align-items:center}
+    .muted{color:var(--muted);font-size:13px}
+    @media (max-width:640px){ .meta{min-width:80px} .crit{flex-direction:column;align-items:stretch} header{flex-direction:column;align-items:flex-start} }
+    pre.editHint{background:#071124;color:#cfeff6;padding:12px;border-radius:8px;overflow:auto}
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="wrap">
     <header>
       <div>
         <h1>Critères — Jeu Roblox valide pour <em>farm</em></h1>
-        <p class="lead">Ajoute, modifie et organise les critères. Les changements sont enregistrés localement.</p>
+        <p class="lead">Page d'information — modifie les critères directement dans le code (tableau JS).</p>
       </div>
-      <div style="text-align:right">
-        <button id="exportBtn" class="small">Exporter JSON</button>
-        <button id="importBtn" class="small ghost">Importer JSON</button>
+      <div class="controls">
+        <div class="muted">Fichier statique — aucun enregistrement</div>
       </div>
     </header>
 
-    <section class="card" aria-label="Ajout de critère">
-      <div class="controls">
-        <input id="newText" type="text" placeholder="Nouvel élément — ex: 'Système d'XP stable'" />
-        <select id="newType" aria-label="Type">
-          <option value="must">Obligatoire</option>
-          <option value="nice">Souhaitable</option>
-          <option value="warning">Alerte / Risque</option>
-        </select>
-        <select id="newPriority" aria-label="Priorité">
-          <option value="high">Haute</option>
-          <option value="medium">Moyenne</option>
-          <option value="low">Faible</option>
-        </select>
-        <button id="addBtn">Ajouter</button>
-      </div>
-      <div style="margin-top:12px;color:var(--muted);font-size:13px">Astuce : double-cliquez le texte d'un critère pour l'éditer. Cliquez sur la pastille pour changer son état (activé/désactivé).</div>
-    </section>
+    <section class="card" aria-label="Liste de critères">
+      <strong>Liste des critères (modifiable dans le code)</strong>
 
-    <section class="card" id="listCard" aria-label="Liste de critères">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <strong>Liste des critères</strong>
-        <div style="display:flex;gap:8px">
-          <button id="clearBtn" class="ghost small">Tout supprimer</button>
-          <button id="resetBtn" class="ghost small">Rétablir modèle</button>
-        </div>
-      </div>
+      <!--
+        ÉDITE ICI (facile à modifier) :
+        Le tableau CRITERIA ci-dessous contient les objets de critères.
+        Chaque objet a la structure :
+          { id: 'unique-id', title: 'Titre', desc: 'Description', type: 'must'|'nice'|'warning', priority: 'high'|'medium'|'low' }
+        Modifie / supprime / ajoute des objets dans ce tableau puis recharge la page.
+      -->
+      <pre class="editHint" id="editHint">
+Éditez le tableau CRITERIA dans le script en bas de la page.
+Exemple d'entrée :
+{ id: 'c1', title: 'Système d\'XP/coins stable', desc: 'Récompenses constantes, sans bugs qui bloquent le gain.', type: 'must', priority: 'high' }
+      </pre>
 
-      <ul class="criteria" id="criteriaList" aria-live="polite"></ul>
+      <ul class="criteria" id="criteriaList" role="list"></ul>
 
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-        <button id="checkAll" class="small ghost">Marquer tout OK</button>
-        <button id="uncheckAll" class="small ghost">Tout décocher</button>
-        <button id="exportCSV" class="small">Exporter CSV</button>
+      <div style="margin-top:12px;color:var(--muted);font-size:13px">
+        Conseils : pour partager, héberge ce fichier sur un serveur (ou GitHub Pages). Si tu veux, je peux fournir une version statique encore plus simple (juste HTML/CSS sans JS) — dis-le.
       </div>
     </section>
 
     <footer>
-      <div>Enregistré localement — aucun envoi externe. Vous pouvez modifier les critères quand vous voulez.</div>
+      <div>À propos : cette page est informative — aucune collecte de données. Modifie les critères dans le code source selon tes besoins.</div>
     </footer>
   </div>
 
-<script>
-  // Données par défaut
-  const DEFAULT = [
-    {id: uid(), text: "Système d'XP/coins stable et exploitable", type: 'must', priority:'high', ok:false},
-    {id: uid(), text: "Pas d'anticheat empêchant le farm", type: 'must', priority:'high', ok:false},
-    {id: uid(), text: "Temps de session raisonnable (pas de déconnexions fréquentes)", type: 'nice', priority:'medium', ok:false},
-    {id: uid(), text: "Récompenses par action bien définies", type: 'nice', priority:'medium', ok:false},
-    {id: uid: uid(), text: "Conditions TOS/monétisation à vérifier", type: 'warning', priority:'high', ok:false}
-  ];
+  <script>
+    /* ===========================
+       MODIFY THIS ARRAY DIRECTLY
+       ===========================
+       Tu peux remplacer, ajouter ou supprimer des objets dans CRITERIA.
+       Chaque objet :
+         id       : identifiant unique (chaîne)
+         title    : titre court
+         desc     : description détaillée (texte)
+         type     : 'must' | 'nice' | 'warning' (affiche une pastille)
+         priority : 'high' | 'medium' | 'low'
+    */
+    const CRITERIA = [
+      { id: 'c1', title: "Système d'XP/coins stable et exploitable", desc: "Le jeu attribue de l'XP/monnaie régulièrement sans bugs ni blocages, et les gains sont persistants.", type: 'must', priority: 'high' },
+      { id: 'c2', title: "Pas d'anticheat empêchant le farm", desc: "Aucun système anti-automation qui bannit ou bloque les comptes lors d'actions répétées.", type: 'must', priority: 'high' },
+      { id: 'c3', title: "Sessions stables", desc: "Peu de déconnexions et latence raisonnable — les sessions longues sont possibles.", type: 'nice', priority: 'medium' },
+      { id: 'c4', title: "Récompenses par action bien définies", desc: "Chaque action (ex : tuer NPC, récolter) donne une récompense prévisible.", type: 'nice', priority: 'medium' },
+      { id: 'c5', title: "Conditions d'utilisation / monétisation à vérifier", desc: "Assure-toi que le farm proposé ne viole pas les ToS ou la monétisation du jeu.", type: 'warning', priority: 'high' }
+    ];
 
-  // NOTE: The previous default contains a JS syntax mistake (accidental 'id:' key). We'll use a corrected defaults below.
-  const defaultSeed = [
-    {id: uid(), text: "Système d'XP/coins stable et exploitable", type: 'must', priority:'high', ok:false},
-    {id: uid(), text: "Pas d'anticheat empêchant le farm", type: 'must', priority:'high', ok:false},
-    {id: uid(), text: "Temps de session raisonnable (pas de déconnexions fréquentes)", type: 'nice', priority:'medium', ok:false},
-    {id: uid(), text: "Récompenses par action bien définies", type: 'nice', priority:'medium', ok:false},
-    {id: uid(), text: "Vérifier les conditions d'utilisation et monétisation (TOS)", type: 'warning', priority:'high', ok:false}
-  ];
+    /* Rendering (tu n'as pas besoin de toucher) */
+    const container = document.getElementById('criteriaList');
 
-  // Utilitaires
-  function uid(){ return Math.random().toString(36).slice(2,9); }
-  function qs(id){ return document.getElementById(id); }
+    function badgeClass(t){
+      if(t === 'must') return 'badge must';
+      if(t === 'nice') return 'badge nice';
+      return 'badge warning';
+    }
 
-  // Chargement / Sauvegarde
-  function load(){
-    try{
-      const raw = localStorage.getItem('robloxFarmCriteria');
-      if(!raw) return defaultSeed.slice();
-      return JSON.parse(raw);
-    }catch(e){console.error(e); return defaultSeed.slice();}
-  }
-  function save(arr){ localStorage.setItem('robloxFarmCriteria', JSON.stringify(arr)); }
+    function render(){
+      container.innerHTML = '';
+      if(!CRITERIA || CRITERIA.length === 0){
+        container.innerHTML = '<li class="muted" style="padding:12px">Aucun critère défini.</li>';
+        return;
+      }
+      CRITERIA.forEach(c => {
+        const li = document.createElement('li');
+        li.className = 'crit';
+        li.innerHTML = `
+          <div class="meta">
+            <div class="${badgeClass(c.type)}">${(c.type||'').toUpperCase()}</div>
+            <div class="prio">Priorité: ${(c.priority||'medium').toUpperCase()}</div>
+          </div>
+          <div style="flex:1">
+            <h3 class="title">${escapeHtml(c.title)}</h3>
+            <p class="desc">${escapeHtml(c.desc)}</p>
+          </div>
+        `;
+        container.appendChild(li);
+      });
+    }
 
-  // Rendu
-  const listEl = qs('criteriaList');
-  let state = load();
+    // Petit utilitaire pour échapper HTML (sécurité si tu colles du HTML)
+    function escapeHtml(s){
+      if(!s) return '';
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
 
-  function render(){
-    listEl.innerHTML = '';
-    if(state.length === 0){ listEl.innerHTML = '<li style="color:var(--muted);padding:12px">Aucun critère — ajoutez-en un.</li>'; return; }
-    state.forEach((c, idx)=>{
-      const li = document.createElement('li'); li.className='item'; li.draggable=true; li.dataset.id=c.id;
-
-      const drag = document.createElement('div'); drag.className='drag'; drag.title='Déplacer'; drag.textContent='☰';
-      li.appendChild(drag);
-
-      const bulb = document.createElement('button'); bulb.className='small'; bulb.setAttribute('aria-label','Toggle OK'); bulb.textContent = c.ok? 'OK' : '—';
-      bulb.onclick = ()=>{ c.ok = !c.ok; save(state); render(); };
-      li.appendChild(bulb);
-
-      const meta = document.createElement('div'); meta.className='meta'; meta.innerHTML = `<div>${c.type.toUpperCase()}</div><div style="color:var(--muted)">${c.priority}</div>`;
-      li.appendChild(meta);
-
-      const textWrap = document.createElement('div'); textWrap.className='text';
-      const input = document.createElement('input'); input.value = c.text; input.title='Double-cliquez pour éditer'; input.readOnly = true;
-      input.ondblclick = ()=>{ input.readOnly = false; input.focus(); };
-      input.onblur = ()=>{ input.readOnly = true; c.text = input.value || 'Critère vide'; save(state); render(); };
-      input.onkeydown = (e)=>{ if(e.key === 'Enter'){ input.blur(); } };
-      textWrap.appendChild(input);
-      li.appendChild(textWrap);
+    render();
+  </script>
+</body>
+</html>
