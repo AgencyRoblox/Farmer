@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Critères — Jeu Roblox valide pour farm (Info)</title>
+  <title>Critères — Jeu Roblox valide pour farmer (Info)</title>
   <meta name="description" content="Liste d'information — critères qu'un jeu Roblox doit remplir pour être considéré comme 'valide pour farm'." />
   <style>
     :root{
@@ -42,38 +42,29 @@
     <header>
       <div>
         <h1>Critères — Jeu Roblox valide pour <em>farm</em></h1>
-        <p class="lead">Page d'information — modifie les critères directement dans le code (tableau JS).</p>
+        <p class="lead">.</p>
       </div>
       <div class="controls">
-        <div class="muted">Fichier statique — aucun enregistrement</div>
+        <div class="muted">Agency</div>
       </div>
     </header>
 
     <section class="card" aria-label="Liste de critères">
-      <strong>Liste des critères (modifiable dans le code)</strong>
+      <strong>Liste des critères a respecter pour être valide</strong>
 
-      <!--
-        ÉDITE ICI (facile à modifier) :
-        Le tableau CRITERIA ci-dessous contient les objets de critères.
-        Chaque objet a la structure :
-          { id: 'unique-id', title: 'Titre', desc: 'Description', type: 'must'|'nice'|'warning', priority: 'high'|'medium'|'low' }
-        Modifie / supprime / ajoute des objets dans ce tableau puis recharge la page.
-      -->
       <pre class="editHint" id="editHint">
-Éditez le tableau CRITERIA dans le script en bas de la page.
-Exemple d'entrée :
-{ id: 'c1', title: 'Système d\'XP/coins stable', desc: 'Récompenses constantes, sans bugs qui bloquent le gain.', type: 'must', priority: 'high' }
+Attention merci de quand même contacter la hiérachie pour savoir si le jeux est bien valide merci de ne pas contacter la hiérachie si les criteres ne son pas respecter
       </pre>
 
       <ul class="criteria" id="criteriaList" role="list"></ul>
 
       <div style="margin-top:12px;color:var(--muted);font-size:13px">
-        Conseils : pour partager, héberge ce fichier sur un serveur (ou GitHub Pages). Si tu veux, je peux fournir une version statique encore plus simple (juste HTML/CSS sans JS) — dis-le.
+        Site officiel
       </div>
     </section>
 
     <footer>
-      <div>À propos : cette page est informative — aucune collecte de données. Modifie les critères dans le code source selon tes besoins.</div>
+      <div>À propos : cette page est informative — aucune collecte de données.</div>
     </footer>
   </div>
 
@@ -90,9 +81,9 @@ Exemple d'entrée :
          priority : 'high' | 'medium' | 'low'
     */
     const CRITERIA = [
-      { id: 'c1', title: "Système d'XP/coins stable et exploitable", desc: "Le jeu attribue de l'XP/monnaie régulièrement sans bugs ni blocages, et les gains sont persistants.", type: 'must', priority: 'high' },
-      { id: 'c2', title: "Pas d'anticheat empêchant le farm", desc: "Aucun système anti-automation qui bannit ou bloque les comptes lors d'actions répétées.", type: 'must', priority: 'high' },
-      { id: 'c3', title: "Sessions stables", desc: "Peu de déconnexions et latence raisonnable — les sessions longues sont possibles.", type: 'nice', priority: 'medium' },
+      { id: 'c1', title: "Joueur", desc: "Le jeu dois avoir au minimum 10k joueur actif en moyen", type: 'must', priority: 'medium' },
+      { id: 'c2', title: "Systeme", desc: "Possibilitées de donner les ressources farmer", type: 'must', priority: 'high' },
+      { id: 'c3', title: "Age", desc: "Le jeu dois respecter les regles de Roblox et ne pas contenir de contenue ...", type: 'waring', priority: 'hight' },
       { id: 'c4', title: "Récompenses par action bien définies", desc: "Chaque action (ex : tuer NPC, récolter) donne une récompense prévisible.", type: 'nice', priority: 'medium' },
       { id: 'c5', title: "Conditions d'utilisation / monétisation à vérifier", desc: "Assure-toi que le farm proposé ne viole pas les ToS ou la monétisation du jeu.", type: 'warning', priority: 'high' }
     ];
